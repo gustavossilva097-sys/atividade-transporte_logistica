@@ -55,5 +55,31 @@ engine = create_engine("sqlite:///corrida.db")
 
 Base.metadata.create_all(engine)
 
+
 Session = sessionmaker(bind=engine)
+
+def cadastrar_motorista():
+
+    nome = input("Digite o nome do motorista: ")
+    destino = input("Digite o Destino: ")
+    preco = input("Digite o Preço: ")
+    categoria = input("Digite a cadegoria")
+    with Session() as session:
+        try:
+            motoristas_existente = session.query(Motorista).filter_by(nome=nome, destino=destino).first()
+            if motoristas_existente == None:
+                novo_motorista = Motorista(nome, destino, preco, categoria)
+                session.add(novo_motorista)
+                session.commit()
+            else:
+                print(f"Já existe esse motorista!")
+        except Exception as erro:
+            session.rollback()
+            print(f"Ocorreu um erro! {erro}")
+        
+
+    
+
+
+    
 
