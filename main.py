@@ -76,6 +76,7 @@ def cadastrar_motorista():
         except Exception as erro:
             session.rollback()
             print(f"Ocorreu um erro! {erro}")
+            
         
 
     
